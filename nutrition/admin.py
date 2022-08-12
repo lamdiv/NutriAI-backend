@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import NutritionCommodity
+from .models import NutritionCommodity, ScanningImage
 
 
 class NutritionCommodityAdmin(admin.ModelAdmin):
@@ -32,3 +32,4 @@ class NutritionCommodityAdmin(admin.ModelAdmin):
 
 
 admin.site.register(NutritionCommodity, NutritionCommodityAdmin)
+admin.site.register(ScanningImage)

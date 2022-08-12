@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import NutritionCommodity
+from .models import NutritionCommodity, ScanningImage
 
 
 class NutritionCommoditySerializer(serializers.ModelSerializer):
@@ -25,3 +25,13 @@ class NutritionCommoditySerializer(serializers.ModelSerializer):
                 'riboflavin_mg',
                 'niacin_mg',
             ]
+
+
+class ScanningImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ScanningImage
+        fields = [ 
+                    'user',
+                    'image_id',
+                    'image_to_scan'
+                ]
