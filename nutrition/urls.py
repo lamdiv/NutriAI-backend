@@ -8,11 +8,11 @@ from .views import (
 
 route = routers.DefaultRouter()
 route.register('nutrition', NutritionCommodityView)
-route.register('image', ScanningImageView)
-
+#route.register('image', ScanningImageView)
 
 urlpatterns = [
     path('', include(route.urls)),
     path('image_upload_and_scan/', image_upload_and_scan),
+    path('image/',  ScanningImageView.as_view({"post":"post"})),
 
 ]

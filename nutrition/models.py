@@ -3,7 +3,7 @@ from home.models import User
 from django.utils import timezone
 
 def upload_hosting_picture(instance, filename):
-    return "scan_pics/{timezone}/{host_to}/{filename}".format(host_to=instance.user, filename=filename, timezone=timezone.now())
+    return "scan_pics/{filename}".format(filename=filename)
 
 class NutritionCommodity(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

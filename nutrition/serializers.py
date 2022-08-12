@@ -1,3 +1,4 @@
+from unittest import result
 from rest_framework import serializers
 from .models import NutritionCommodity, ScanningImage
 
@@ -28,10 +29,11 @@ class NutritionCommoditySerializer(serializers.ModelSerializer):
 
 
 class ScanningImageSerializer(serializers.ModelSerializer):
+    image_to_scan=serializers.ImageField()
     class Meta:
         model = ScanningImage
         fields = [ 
                     'user',
                     'image_id',
-                    'image_to_scan'
+                    'image_to_scan',
                 ]

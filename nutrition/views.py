@@ -1,6 +1,7 @@
 from .serializers import NutritionCommoditySerializer, ScanningImageSerializer
 from .models import NutritionCommodity, ScanningImage
-
+import os
+from pathlib import Path
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -8,6 +9,8 @@ from django.http import HttpResponse
 import easyocr
 from rest_framework.filters import SearchFilter, OrderingFilter
 
+BASE_DIR = Path(__file__).resolve().parent.parent
+#MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 class NutritionCommodityView(viewsets.ModelViewSet):
 	queryset = NutritionCommodity.objects.all()
@@ -54,7 +57,12 @@ class ScanningImageView(viewsets.ModelViewSet):
 	def post(self, request, *args, **kwargs):
 		user_id = request.data['user']
 		image_to_scan = request.data['image_to_scan']
-		ScanningImage.objects.create(user_id=user_id, image_to_scan=image_to_scan)
+		new_image=ScanningImage.objects.create(user_id=user_id, image_to_scan=image_to_scan)
+		reader = easyocr.Reader(["en"])
+		image_url=str(BASE_DIR)+str(new_image.image_to_scan.url)
+		results = reader.readtext(image_url)		
+		return Response({'method': 'POST', 'image_to_scan_url': new_image.image_to_scan.url, "results": results})
+
 
 		# image_path = ScanningImage.objects.all().order_by('-image_id')[0].image_to_scan.url
 		# reader = easyocr.Reader(["en"])
