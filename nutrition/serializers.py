@@ -7,10 +7,7 @@ class NutritionCommoditySerializer(serializers.ModelSerializer):
     class Meta:
         model = NutritionCommodity
         fields = [
-                'user',
-                'food_commodity',
-                'edible_portion',
-                'moisture_g',
+                'name',
                 'protein_g',
                 'fat_g',
                 'carbohydrate_h',
@@ -23,8 +20,11 @@ class NutritionCommoditySerializer(serializers.ModelSerializer):
                 'carotene_miu_g',
                 'vitamin_c_mg',
                 'thiamine_mg',
+                'thumbnail',
                 'riboflavin_mg',
-                'niacin_mg',
+                'thumbnail',
+                'rating',
+                'disease_varience'
             ]
 
 
@@ -33,7 +33,6 @@ class ScanningImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ScanningImage
         fields = [ 
-                    'user',
                     'image_id',
                     'image_to_scan',
                 ]

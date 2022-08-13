@@ -29,8 +29,9 @@ SECRET_KEY = 'django-insecure-bi)w3@h6@slqot@my*6snxink=3&mm9mpdvkh3+k*%v!^fz@$5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
+# ssh -i "CSITANHack.cer" ubuntu@ec2-13-233-72-102.ap-south-1.compute.amazonaws.com
 
 # Application definition
 
@@ -120,7 +121,7 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': 'django.codntrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',

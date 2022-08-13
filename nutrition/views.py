@@ -1,3 +1,4 @@
+from typing import final
 from .serializers import NutritionCommoditySerializer, ScanningImageSerializer
 from .models import NutritionCommodity, ScanningImage
 import os
@@ -8,6 +9,7 @@ from rest_framework.response import Response
 from django.http import HttpResponse
 import easyocr
 from rest_framework.filters import SearchFilter, OrderingFilter
+import csv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 #MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -16,10 +18,9 @@ class NutritionCommodityView(viewsets.ModelViewSet):
 	queryset = NutritionCommodity.objects.all()
 	serializer_class = NutritionCommoditySerializer
 	filter_backends = (SearchFilter, OrderingFilter)
-	search_fields = ('user',
-					'food_commodity',
-					'edible_portion',
-					'moisture_g',
+	
+	search_fields = (
+					'name',
 					'protein_g',
 					'fat_g',
 					'carbohydrate_h',
@@ -32,10 +33,13 @@ class NutritionCommodityView(viewsets.ModelViewSet):
 					'carotene_miu_g',
 					'vitamin_c_mg',
 					'thiamine_mg',
-					'riboflavin_mg'
-					'niacin_mg')
-	# ordering_fields = ('host_to_id__post_date','host_to_id__last_edited')
-	ordering = ['-created_date', '-nutrition_id']
+					'riboflavin_mg',
+				
+				)
+
+	def list(self,request,*args,**kwargs):
+		return super().list(request,*args,**kwargs)
+		
 
 @api_view(['POST',])
 def image_upload_and_scan(request):
@@ -55,9 +59,8 @@ class ScanningImageView(viewsets.ModelViewSet):
 
 
 	def post(self, request, *args, **kwargs):
-		user_id = request.data['user']
 		image_to_scan = request.data['image_to_scan']
-		new_image=ScanningImage.objects.create(user_id=user_id, image_to_scan=image_to_scan)
+		new_image=ScanningImage.objects.create( image_to_scan=image_to_scan)
 		reader = easyocr.Reader(["en"])
 		image_url=str(BASE_DIR)+str(new_image.image_to_scan.url)
 		results = reader.readtext(image_url)		

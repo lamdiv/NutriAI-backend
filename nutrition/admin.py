@@ -3,12 +3,10 @@ from .models import NutritionCommodity, ScanningImage
 
 
 class NutritionCommodityAdmin(admin.ModelAdmin):
-    list_display = ('user', 'food_commodity', 'updated_date', 'created_date')
+    list_display = ('name', 'rating','disease_varience')
     fields = [
-        'user',
-        'food_commodity',
-        'edible_portion',
-        'moisture_g',
+        'name',
+        'thumbnail',
         'protein_g',
         'fat_g',
         'carbohydrate_h',
@@ -22,10 +20,10 @@ class NutritionCommodityAdmin(admin.ModelAdmin):
         'vitamin_c_mg',
         'thiamine_mg',
         'riboflavin_mg',
-        'niacin_mg',
+        'rating',
+        'disease_varience'
             ]
-        
-    readonly_fields = ['created_date', ]
+    
 
     class Meta:
         model = NutritionCommodity
